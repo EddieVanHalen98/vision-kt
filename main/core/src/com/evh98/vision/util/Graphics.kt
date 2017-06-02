@@ -1,18 +1,14 @@
 package com.evh98.vision.util
 
-import com.badlogic.gdx.graphics.g2d.GlyphLayout
-import com.badlogic.gdx.graphics.g2d.ParticleEffect
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.Gdx
 import com.evh98.vision.Vision
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.Texture.TextureFilter
 import com.badlogic.gdx.files.FileHandle
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.*
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
-import jdk.nashorn.internal.runtime.regexp.joni.constants.NodeType.ANCHOR
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 
 class Graphics {
@@ -30,18 +26,16 @@ class Graphics {
     var default_manage: Sprite? = null
     var default_add: Sprite? = null
 
-    var particles: ParticleEffect? = null
+    var particles = ParticleEffect()
 
-    var glyph_layout: GlyphLayout? = null
+    var glyph_layout = GlyphLayout()
 
     /*
      * Load all graphics
      */
     fun loadAll() {
         loadSprites()
-        //LoadParticles()
-
-        glyph_layout = GlyphLayout()
+        loadParticles()
     }
 
     /**
@@ -53,21 +47,41 @@ class Graphics {
 
     /**
      * Internal particles loading method
-
+     */
     private fun loadParticles() {
         particles = ParticleEffect()
         particles.load(Gdx.files.internal("particles/particles.p"), Gdx.files.internal("particles/"))
-        particles.setPosition((1920 * Vision.SCALE) as Float, (1080 * Vision.SCALE) as Float)
+        particles.setPosition(1920 * Vision.SCALE, 1080 * Vision.SCALE)
         particles.scaleEffect(Vision.SCALE)
     }
-     **/
+
+    /**
+     * Changes the emitter of the particles to the specified color
+     */
+    fun setParticles(color: Color) {
+        val colors = FloatArray(3)
+
+        if (color === Palette.WHITE) {
+            particles.load(Gdx.files.internal("particles/particles.p"), Gdx.files.internal("particles/"))
+            particles.setPosition(1920 * Vision.SCALE, 1080 * Vision.SCALE)
+            particles.scaleEffect(Vision.SCALE)
+        } else {
+            colors[0] = color.r
+            colors[1] = color.g
+            colors[2] = color.b
+
+            for (i in 0..3) {
+                particles.emitters.get(i).tint.colors = colors
+            }
+        }
+    }
 
     /**
      * Creates a BitmapFont from a FreeTypeFont with a specified size
      */
     fun createFont(type: FreeTypeFontGenerator, size: Int): BitmapFont {
         val param = FreeTypeFontParameter()
-        param.size = size * Vision.SCALE
+        param.size = (size * Vision.SCALE).toInt()
         param.color = Palette.LIGHT_GRAY
         param.flip = true
         val font = type.generateFont(param)
@@ -100,5 +114,15 @@ class Graphics {
      */
     fun drawRect(shape_renderer: ShapeRenderer, x: Float, y: Float, width: Float, height: Float) {
         shape_renderer.rect(x * Vision.SCALE, y * Vision.SCALE, width * Vision.SCALE, height * Vision.SCALE)
+    }
+
+    /**
+     * Draws text using relative to the global anchor point
+     */
+    fun drawText(sprite_batch: SpriteBatch, font: BitmapFont, text: String, x: Float, y: Float) {
+        glyph_layout.setText(font, text)
+        val cx = x - glyph_layout.width / Vision.SCALE / 2
+        val cy = y - glyph_layout.height / Vision.SCALE / 2
+        font.draw(sprite_batch, glyph_layout, cx * Vision.SCALE, cy * Vision.SCALE)
     }
 }

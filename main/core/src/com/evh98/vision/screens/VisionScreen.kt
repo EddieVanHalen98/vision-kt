@@ -2,13 +2,17 @@ package com.evh98.vision.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.evh98.vision.Vision
+import com.evh98.vision.util.Graphics
 
 open class VisionScreen(val vision: Vision) : Screen {
+
+    val Graphics = Graphics()
 
     var camera = OrthographicCamera()
     var sprite_batch = SpriteBatch()
@@ -22,8 +26,8 @@ open class VisionScreen(val vision: Vision) : Screen {
 
     }
 
-    fun start() {
-
+    fun start(color: Color) {
+        Graphics.setParticles(color);
     }
 
     override fun render(delta: Float) {
@@ -36,7 +40,7 @@ open class VisionScreen(val vision: Vision) : Screen {
         shape_renderer.projectionMatrix = camera.combined
 
         sprite_batch.begin()
-            // TODO: particle render
+            Graphics.particles.draw(sprite_batch, delta);
         sprite_batch.end()
 
         draw(delta)
@@ -53,7 +57,8 @@ open class VisionScreen(val vision: Vision) : Screen {
     }
 
     override fun dispose() {
-
+        sprite_batch.dispose()
+        shape_renderer.dispose()
     }
 
     override fun hide() {}

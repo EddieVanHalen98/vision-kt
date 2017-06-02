@@ -2,6 +2,7 @@ package com.evh98.vision.screens
 
 import com.evh98.vision.Vision
 import com.evh98.vision.ui.BigPane
+import com.evh98.vision.util.Controller
 import com.evh98.vision.util.Palette
 
 class HomeScreen(vision: Vision) : VisionScreen(vision) {
@@ -16,6 +17,8 @@ class HomeScreen(vision: Vision) : VisionScreen(vision) {
 
     override fun show() {
         super.show()
+
+        start(Palette.WHITE)
     }
 
     override fun draw(delta: Float) {
@@ -30,5 +33,11 @@ class HomeScreen(vision: Vision) : VisionScreen(vision) {
 
         if (x == 2 && y == 2) system.renderSelect(sprite_batch, shape_renderer)
         else system.renderUnselect(sprite_batch, shape_renderer)
+    }
+
+    override fun update() {
+        if (Controller.isRed()) {
+            vision.terminate()
+        }
     }
 }

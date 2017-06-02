@@ -8,9 +8,9 @@ import com.evh98.vision.screens.SplashScreen
 class Vision : Game() {
 
     val BUILD_NUMBER = 1
-    var WIDTH = 3840F
-    var HEIGHT = 2160F
-    var SCALE = 1
+    var WIDTH = 1280F
+    var HEIGHT = 720F
+    var SCALE = 0.33333333333333333F
 
     var splash_screen: SplashScreen? = null
 

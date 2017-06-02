@@ -7,8 +7,6 @@ import com.evh98.vision.util.Graphics
 
 class SplashScreen(vision: Vision) : VisionScreen(vision) {
 
-    val Graphics = Graphics()
-
     override fun show() {
         Graphics.splash = Graphics.createSprite(Gdx.files.internal("splash.png"));
     }
@@ -37,7 +35,7 @@ class SplashScreen(vision: Vision) : VisionScreen(vision) {
         initObjects()
         initScreens()
 
-        vision.setScreen(vision.home_screen);
+        vision.screen = vision.home_screen
     }
 
     private fun initServer() {

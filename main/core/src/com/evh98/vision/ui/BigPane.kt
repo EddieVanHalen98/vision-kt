@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType
 import com.evh98.vision.Vision
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
+import com.evh98.vision.util.Palette
 
 
 class BigPane(val color: Color, val text: String, val x: Float, val y: Float) {
@@ -37,6 +38,13 @@ class BigPane(val color: Color, val text: String, val x: Float, val y: Float) {
         shape_renderer.color = color
         Graphics.drawRect(shape_renderer, x, y, 1536F, 768F)
         shape_renderer.end()
+        // Draw title
+        sprite_batch.begin();
+        font.color = color
+        Graphics.drawText(sprite_batch, font, text, x + 768, y + 532);
+        // Draw icon
+//        Graphics.drawSprite(sprite_batch, icon, x + 768, y + 232, Palette.LIGHT_GRAY);
+        sprite_batch.end();
     }
 
     /**
@@ -48,6 +56,12 @@ class BigPane(val color: Color, val text: String, val x: Float, val y: Float) {
         shape_renderer.color = color
         Graphics.drawRect(shape_renderer, x, y, 1536F, 768F)
         shape_renderer.end()
-
+        // Draw title
+        sprite_batch.begin();
+        font.color = Palette.LIGHT_GRAY
+        Graphics.drawText(sprite_batch, font, text, x + 768, y + 532);
+        // Draw icon
+//        Graphics.drawSprite(sprite_batch, icon, x + 768, y + 232, color);
+        sprite_batch.end();
     }
 }

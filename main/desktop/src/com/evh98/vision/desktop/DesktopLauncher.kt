@@ -7,7 +7,11 @@ import com.evh98.vision.Vision
 object DesktopLauncher {
 
     @JvmStatic fun main(arg: Array<String>) {
-        val config = LwjglApplicationConfiguration()
-        LwjglApplication(Vision(), config)
+        val cfg = LwjglApplicationConfiguration()
+
+        cfg.width = 1280
+        cfg.height = 720
+
+        LwjglApplication(Vision(), cfg)
     }
 }

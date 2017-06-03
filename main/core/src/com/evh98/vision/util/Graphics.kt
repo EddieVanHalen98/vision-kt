@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.*
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
 class Graphics {
 
@@ -42,7 +44,7 @@ class Graphics {
      * Internal textures loading method
      */
     private fun loadSprites() {
-
+        Icons.loadAll()
     }
 
     /**
@@ -124,5 +126,40 @@ class Graphics {
         val cx = x - glyph_layout.width / Vision.SCALE / 2
         val cy = y - glyph_layout.height / Vision.SCALE / 2
         font.draw(sprite_batch, glyph_layout, cx * Vision.SCALE, cy * Vision.SCALE)
+    }
+
+    /**
+     * Draws a sprite under Vision scaling with a specified color
+     */
+    fun drawSprite(sprite_batch: SpriteBatch, sprite: Sprite, x: Float, y: Float, color: Color) {
+        val original = sprite_batch.color
+        sprite_batch.color = color
+        sprite_batch.draw(sprite, (x - (sprite.width / 2)) * Vision.SCALE, (y - (sprite.height / 2)) * Vision.SCALE,
+                sprite.width * Vision.SCALE, sprite.height * Vision.SCALE)
+        sprite_batch.color = original
+    }
+
+    /**
+     * Draws a sprite with a specified size under Vision scaling with a specified color
+     */
+    fun drawSprite(sprite_batch: SpriteBatch, sprite: Sprite, x: Float, y: Float, width: Float, height: Float, color: Color) {
+        val original = sprite_batch.color
+        sprite_batch.color = color
+        sprite_batch.draw(sprite, x * Vision.SCALE, y * Vision.SCALE, width * Vision.SCALE, height * Vision.SCALE)
+        sprite_batch.color = original
+    }
+
+    /**
+     * Draws a sprite under Vision scaling
+     */
+    fun drawSprite(sprite_batch: SpriteBatch, sprite: Sprite, x: Float, y: Float) {
+        sprite_batch.draw(sprite, x * Vision.SCALE, y * Vision.SCALE)
+    }
+
+    /**
+     * Draws a sprite with a specified size under Vision scaling
+     */
+    fun drawSprite(sprite_batch: SpriteBatch, sprite: Sprite, x: Float, y: Float, width: Float, height: Float) {
+        sprite_batch.draw(sprite, x * Vision.SCALE, y * Vision.SCALE, width * Vision.SCALE, height * Vision.SCALE)
     }
 }

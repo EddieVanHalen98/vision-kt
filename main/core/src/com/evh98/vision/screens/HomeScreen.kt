@@ -3,6 +3,7 @@ package com.evh98.vision.screens
 import com.evh98.vision.Vision
 import com.evh98.vision.ui.BigPane
 import com.evh98.vision.util.Controller
+import com.evh98.vision.util.Icons
 import com.evh98.vision.util.Palette
 
 class HomeScreen(vision: Vision) : VisionScreen(vision) {
@@ -10,10 +11,10 @@ class HomeScreen(vision: Vision) : VisionScreen(vision) {
     var x = -1
     var y = -1
 
-    var games = BigPane(color = Palette.RED, text = "Games", x = 320F, y = 248F)
-    var media = BigPane(color = Palette.BLUE, text = "Media", x = 1984F, y = 248F)
-    var apps = BigPane(color = Palette.YELLOW, text = "Apps", x = 320F, y = 1128F)
-    var system = BigPane(color = Palette.GREEN, text = "System", x = 1984F, y = 1128F)
+    var games = BigPane(color = Palette.RED, text = "Games", icon = Icons.GAMES!!, x = 320F, y = 248F)
+    var media = BigPane(color = Palette.BLUE, text = "Media", icon = Icons.MEDIA!!, x = 1984F, y = 248F)
+    var apps = BigPane(color = Palette.YELLOW, text = "Apps", icon = Icons.APPS!!, x = 320F, y = 1128F)
+    var system = BigPane(color = Palette.GREEN, text = "System", icon = Icons.SETTINGS!!, x = 1984F, y = 1128F)
 
     override fun show() {
         super.show()
@@ -36,7 +37,12 @@ class HomeScreen(vision: Vision) : VisionScreen(vision) {
     }
 
     override fun update() {
-        if (Controller.isRed()) {
+        if (Controller.isNavigationKey()) {
+            val newCoords = Controller.getNewXY(x, y, 2, 2, 4)
+            x = newCoords[0]
+            y = newCoords[1]
+        }
+        else if (Controller.isRed()) {
             vision.terminate()
         }
     }

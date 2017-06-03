@@ -5,104 +5,23 @@ import com.badlogic.gdx.Input
 
 object Controller {
 
-    /*
-	 * Checks if any of the applicable Vision 'Green' keys have been detected
-	 */
-    fun isGreen(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)
-    }
+    fun isGreen() = Gdx.input.isKeyJustPressed(Input.Keys.E) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)
+    fun isRed() = Gdx.input.isKeyJustPressed(Input.Keys.R) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)
+    fun isBlue() = Gdx.input.isKeyJustPressed(Input.Keys.F)
+    fun isYellow() = Gdx.input.isKeyJustPressed(Input.Keys.Q)
+    fun isSearch() = Gdx.input.isKeyJustPressed(Input.Keys.TAB)
 
-    /*
-	 * Checks if any of the applicable Vision 'Red' keys have been detected
-	 */
-    fun isRed(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.R) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)
-    }
+    fun isUp() = Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)
+    fun isDown() = Gdx.input.isKeyJustPressed(Input.Keys.S) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)
+    fun isRight() = Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)
+    fun isLeft() = Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)
+    fun isNavigationKey() = isUp() || isDown() || isRight() || isLeft()
 
-    /*
-	 * Checks if any of the applicable Vision 'Blue' keys have been detected
-	 */
-    fun isBlue(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.F)
-    }
+    fun isAnyKey() = isGreen() || isRed() || isBlue() || isYellow() || isUp() || isDown() || isRight() || isLeft() || isSearch()
 
-    /*
-	 * Checks if any of the applicable Vision 'Yellow' keys have been detected
-	 */
-    fun isYellow(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.Q)
-    }
-
-    /*
-	 * Checks if any of the applicable Vision 'Up' keys have been detected
-	 */
-    fun isUp(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)
-    }
-
-    /*
-	 * Checks if any of the applicable Vision 'Down' keys have been detected
-	 */
-    fun isDown(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.S) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)
-    }
-
-    /*
-	 * Checks if any of the applicable Vision 'Right' keys have been detected
-	 */
-    fun isRight(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)
-    }
-
-    /*
-	 * Checks if any of the applicable Vision 'Left' keys have been detected
-	 */
-    fun isLeft(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)
-    }
-
-    /*
-	 * Checks if any of the applicable Vision 'Search' keys have been detected
-	 */
-    fun isSearch(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.TAB)
-    }
-
-    /*
-	 * Checks if any of the applicable Vision navigation keys have been detected
-	 */
-    fun isNavigationKey(): Boolean {
-        return isUp() || isDown() || isRight() || isLeft()
-    }
-
-    /*
-	 * Checks if any of the applicable Vision keys have been detected
-	 */
-    fun isAnyKey(): Boolean {
-        return isGreen() || isRed() || isBlue() || isYellow() || isUp() ||
-                isDown() || isRight() || isLeft() || isSearch()
-    }
-
-    /*
-	 * Checks if the space character is entered
-	 */
-    fun isSpace(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
-    }
-
-    /*
-	 * Checks if the backspace character is entered
-	 */
-    fun isBackspace(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)
-    }
-
-    /*
-	 * Checks if the enter character is entered
-	 */
-    fun isEnter(): Boolean {
-        return Gdx.input.isKeyJustPressed(Input.Keys.ENTER)
-    }
+    fun isSpace() = Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
+    fun isBackspace() = Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)
+    fun isEnter() = Gdx.input.isKeyJustPressed(Input.Keys.ENTER)
 
     /*
 	 * Checks what letter character is entered
@@ -194,4 +113,53 @@ object Controller {
         }
     }
 
+    /**
+     * get coordinates of new selected pane based on key event and current selected pane
+     * @param e key event
+     * *
+     * @param x current x coordinate
+     * *
+     * @param ycurrent y coordinate
+     * *
+     * @param columns total columns
+     * *
+     * @param rows total rows
+     * *
+     * @param totalItems how many total panes are there
+     * *
+     * @return int array [x,y] containing new coordinates
+     */
+    fun getNewXY(x: Int, y: Int, columns: Int, rows: Int, totalItems: Int): IntArray {
+        var x = x
+        var y = y
+
+        if (x == -1 && y == -1) return intArrayOf(1, 1)
+        if (x == -1) x = 0
+        if (y == -1) y = 0
+
+        if (isLeft()) x--
+        if (isDown()) y++
+        if (isRight()) x++
+        if (isUp()) y--
+
+        if (x > columns) {
+            y++
+            x = 1
+        }
+        if (y > rows) y = 1
+        if (x == 0) {
+            x = columns
+            y--
+        }
+        if (y == 0) y = rows
+
+        val leftOver = totalItems % columns
+
+        if (leftOver != 0 && x > leftOver && y == rows) {
+            //the selected item doesn't exist. So just do whatever we were again until it does
+            return getNewXY(x, y, columns, rows, totalItems)
+        }
+
+        return intArrayOf(x, y)
+    }
 }

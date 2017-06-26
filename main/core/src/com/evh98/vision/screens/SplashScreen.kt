@@ -8,19 +8,19 @@ import com.evh98.vision.util.Graphics
 class SplashScreen(vision: Vision) : VisionScreen(vision) {
 
     override fun show() {
-        Graphics.splash = Graphics.createSprite(Gdx.files.internal("splash.png"));
+        Graphics.splash = Graphics.createSprite(Gdx.files.internal("splash.png"))
     }
 
     override fun render(delta: Float) {
         Gdx.gl.glClearColor(0.95F, 0.95F, 0.95F, 1F)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        camera.update();
+        camera.update()
 
-        sprite_batch.setProjectionMatrix(camera.combined);
-        shape_renderer.setProjectionMatrix(camera.combined);
+        sprite_batch.projectionMatrix = camera.combined
+        shape_renderer.projectionMatrix = camera.combined
 
-        Graphics.drawSplash(sprite_batch);
+        Graphics.drawSplash(sprite_batch)
 
         object : Thread() {
             override fun run() {

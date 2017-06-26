@@ -23,17 +23,10 @@ class HomeScreen(vision: Vision) : VisionScreen(vision) {
     }
 
     override fun draw(delta: Float) {
-        if (x == 1 && y == 1) games.renderSelect(sprite_batch, shape_renderer)
-        else games.renderUnselect(sprite_batch, shape_renderer)
-
-        if (x == 2 && y == 1) media.renderSelect(sprite_batch, shape_renderer)
-        else media.renderUnselect(sprite_batch, shape_renderer)
-
-        if (x == 1 && y == 2) apps.renderSelect(sprite_batch, shape_renderer)
-        else apps.renderUnselect(sprite_batch, shape_renderer)
-
-        if (x == 2 && y == 2) system.renderSelect(sprite_batch, shape_renderer)
-        else system.renderUnselect(sprite_batch, shape_renderer)
+        renderGamesPane()
+        renderMediaPane()
+        renderAppsPane()
+        renderSystemPane()
     }
 
     override fun update() {
@@ -45,5 +38,25 @@ class HomeScreen(vision: Vision) : VisionScreen(vision) {
         else if (Controller.isRed()) {
             vision.terminate()
         }
+    }
+
+    fun renderGamesPane() {
+        if (x == 1 && y == 1) games.renderSelect(sprite_batch, shape_renderer)
+        else games.renderUnselect(sprite_batch, shape_renderer)
+    }
+
+    fun renderMediaPane() {
+        if (x == 2 && y == 1) media.renderSelect(sprite_batch, shape_renderer)
+        else media.renderUnselect(sprite_batch, shape_renderer)
+    }
+
+    fun renderAppsPane() {
+        if (x == 1 && y == 2) apps.renderSelect(sprite_batch, shape_renderer)
+        else apps.renderUnselect(sprite_batch, shape_renderer)
+    }
+
+    fun renderSystemPane() {
+        if (x == 2 && y == 2) system.renderSelect(sprite_batch, shape_renderer)
+        else system.renderUnselect(sprite_batch, shape_renderer)
     }
 }

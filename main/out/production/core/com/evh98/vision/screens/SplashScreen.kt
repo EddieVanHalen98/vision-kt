@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.evh98.vision.Vision
 import com.evh98.vision.models.Models
 import com.evh98.vision.util.Graphics
+import com.evh98.vision.ui.Search
 
 class SplashScreen(vision: Vision) : VisionScreen(vision) {
 
@@ -34,9 +35,8 @@ class SplashScreen(vision: Vision) : VisionScreen(vision) {
         initServer()
         initAssets()
         initModels()
+        initSystem()
         initScreens()
-
-        vision.screen = vision.home_screen
     }
 
     private fun initServer() {
@@ -47,6 +47,10 @@ class SplashScreen(vision: Vision) : VisionScreen(vision) {
         Graphics.loadAll()
     }
 
+    private fun initSystem() {
+        vision.search = Search(vision)
+    }
+
     private fun initModels() {
         Models.loadGames()
     }
@@ -54,5 +58,7 @@ class SplashScreen(vision: Vision) : VisionScreen(vision) {
     private fun initScreens() {
         vision.home_screen = HomeScreen(vision)
         vision.game_screen = GameScreen(vision)
+
+        vision.screen = vision.home_screen
     }
 }

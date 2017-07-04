@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx
 import com.evh98.vision.screens.GameScreen
 import com.evh98.vision.screens.HomeScreen
 import com.evh98.vision.screens.SplashScreen
+import com.evh98.vision.ui.Search
 
 class Vision : Game() {
 
@@ -17,6 +18,8 @@ class Vision : Game() {
 
     var home_screen: HomeScreen? = null
     var game_screen: GameScreen? = null
+
+    var search: Search? = null
 
     override fun create() {
         splash_screen = SplashScreen(this)

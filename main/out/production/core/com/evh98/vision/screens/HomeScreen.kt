@@ -30,6 +30,8 @@ class HomeScreen(vision: Vision) : VisionScreen(vision) {
     }
 
     override fun update() {
+        super.update()
+
         if (Controller.isNavigationKey()) {
             val newCoords = Controller.getNewXY(x, y, 2, 2, 4)
             x = newCoords[0]

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.evh98.vision.Vision
+import com.evh98.vision.util.Controller
 import com.evh98.vision.util.Graphics
 
 open class VisionScreen(val vision: Vision) : Screen {
@@ -43,7 +44,12 @@ open class VisionScreen(val vision: Vision) : Screen {
 
         draw(delta)
 
-        update()
+        if (vision.search!!.isActive) {
+            vision.search!!.render(sprite_batch, shape_renderer)
+            vision.search!!.update()
+        } else {
+            update()
+        }
     }
 
     open fun draw(delta: Float) {
@@ -51,7 +57,9 @@ open class VisionScreen(val vision: Vision) : Screen {
     }
 
     open fun update() {
-
+        if (Controller.isSearch()) {
+            vision.search!!.toggleSearch()
+        }
     }
 
     override fun dispose() {

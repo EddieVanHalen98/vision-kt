@@ -3,24 +3,25 @@ package com.evh98.vision.screens
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.evh98.vision.Vision
+import com.evh98.vision.models.Models
 import com.evh98.vision.util.Graphics
 
 class SplashScreen(vision: Vision) : VisionScreen(vision) {
 
     override fun show() {
-        Graphics.splash = Graphics.createSprite(Gdx.files.internal("splash.png"));
+        Graphics.splash = Graphics.createSprite(Gdx.files.internal("splash.png"))
     }
 
     override fun render(delta: Float) {
         Gdx.gl.glClearColor(0.95F, 0.95F, 0.95F, 1F)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        camera.update();
+        camera.update()
 
-        sprite_batch.setProjectionMatrix(camera.combined);
-        shape_renderer.setProjectionMatrix(camera.combined);
+        sprite_batch.projectionMatrix = camera.combined
+        shape_renderer.projectionMatrix = camera.combined
 
-        Graphics.drawSplash(sprite_batch);
+        Graphics.drawSplash(sprite_batch)
 
         object : Thread() {
             override fun run() {
@@ -32,7 +33,7 @@ class SplashScreen(vision: Vision) : VisionScreen(vision) {
     private fun init() {
         initServer()
         initAssets()
-        initObjects()
+        initModels()
         initScreens()
 
         vision.screen = vision.home_screen
@@ -46,11 +47,12 @@ class SplashScreen(vision: Vision) : VisionScreen(vision) {
         Graphics.loadAll()
     }
 
-    private fun initObjects() {
-
+    private fun initModels() {
+        Models.loadGames()
     }
 
     private fun initScreens() {
         vision.home_screen = HomeScreen(vision)
+        vision.game_screen = GameScreen(vision)
     }
 }

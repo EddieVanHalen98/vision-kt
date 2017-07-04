@@ -12,8 +12,6 @@ import com.evh98.vision.util.Graphics
 
 open class VisionScreen(val vision: Vision) : Screen {
 
-    val Graphics = Graphics()
-
     var camera = OrthographicCamera()
     var sprite_batch = SpriteBatch()
     var shape_renderer = ShapeRenderer()

@@ -13,13 +13,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
-class Graphics {
+object Graphics {
 
     val Vision = Vision()
 
     var font_roboto_thin = FreeTypeFontGenerator(Gdx.files.internal("fonts/roboto-thin.ttf"))
     var font_roboto_light = FreeTypeFontGenerator(Gdx.files.internal("fonts/roboto-light.ttf"))
     var font_roboto_bold = FreeTypeFontGenerator(Gdx.files.internal("fonts/roboto-bold.ttf"))
+    var font_product_sans = FreeTypeFontGenerator(Gdx.files.internal("fonts/productsans.ttf"))
 
     var splash: Sprite? = null
     var lockscreen: Sprite? = null
@@ -129,6 +130,13 @@ class Graphics {
     }
 
     /**
+     * Draws a sprite under Vision scaling
+     */
+    fun drawSprite(sprite_batch: SpriteBatch, sprite: Sprite, x: Float, y: Float) {
+        sprite_batch.draw(sprite, x * Vision.SCALE, y * Vision.SCALE)
+    }
+
+    /**
      * Draws a sprite under Vision scaling with a specified color
      */
     fun drawSprite(sprite_batch: SpriteBatch, sprite: Sprite, x: Float, y: Float, color: Color) {
@@ -147,13 +155,6 @@ class Graphics {
         sprite_batch.color = color
         sprite_batch.draw(sprite, x * Vision.SCALE, y * Vision.SCALE, width * Vision.SCALE, height * Vision.SCALE)
         sprite_batch.color = original
-    }
-
-    /**
-     * Draws a sprite under Vision scaling
-     */
-    fun drawSprite(sprite_batch: SpriteBatch, sprite: Sprite, x: Float, y: Float) {
-        sprite_batch.draw(sprite, x * Vision.SCALE, y * Vision.SCALE)
     }
 
     /**

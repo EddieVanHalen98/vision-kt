@@ -3,6 +3,7 @@ package com.evh98.vision.screens
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.evh98.vision.Vision
+import com.evh98.vision.models.Models
 import com.evh98.vision.util.Graphics
 
 class SplashScreen(vision: Vision) : VisionScreen(vision) {
@@ -32,7 +33,7 @@ class SplashScreen(vision: Vision) : VisionScreen(vision) {
     private fun init() {
         initServer()
         initAssets()
-        initObjects()
+        initModels()
         initScreens()
 
         vision.screen = vision.home_screen
@@ -46,11 +47,12 @@ class SplashScreen(vision: Vision) : VisionScreen(vision) {
         Graphics.loadAll()
     }
 
-    private fun initObjects() {
-
+    private fun initModels() {
+        Models.loadGames()
     }
 
     private fun initScreens() {
         vision.home_screen = HomeScreen(vision)
+        vision.game_screen = GameScreen(vision)
     }
 }

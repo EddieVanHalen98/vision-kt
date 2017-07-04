@@ -15,7 +15,6 @@ import com.evh98.vision.util.Palette
 class BigPane(val color: Color, val text: String, val icon: Sprite, val x: Float, val y: Float) {
 
     val Vision = Vision()
-    val Graphics = Graphics()
 
     var font = Graphics.createFont(Graphics.font_roboto_thin, 192);
 

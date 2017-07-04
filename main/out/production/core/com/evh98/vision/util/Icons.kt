@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 
 object Icons {
 
-    val Graphics = Graphics()
-
     var ACCOUNT: Sprite? = null
     var APPS: Sprite? = null
     var BACK: Sprite? = null

@@ -35,6 +35,9 @@ class HomeScreen(vision: Vision) : VisionScreen(vision) {
             x = newCoords[0]
             y = newCoords[1]
         }
+        else if (Controller.isGreen()) {
+            if (x == 1 && y == 1) vision.screen = vision.game_screen!!
+        }
         else if (Controller.isRed()) {
             vision.terminate()
         }

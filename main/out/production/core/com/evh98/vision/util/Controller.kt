@@ -115,19 +115,6 @@ object Controller {
 
     /**
      * get coordinates of new selected pane based on key event and current selected pane
-     * @param e key event
-     * *
-     * @param x current x coordinate
-     * *
-     * @param ycurrent y coordinate
-     * *
-     * @param columns total columns
-     * *
-     * @param rows total rows
-     * *
-     * @param totalItems how many total panes are there
-     * *
-     * @return int array [x,y] containing new coordinates
      */
     fun getNewXY(x: Int, y: Int, columns: Int, rows: Int, totalItems: Int): IntArray {
         var x = x

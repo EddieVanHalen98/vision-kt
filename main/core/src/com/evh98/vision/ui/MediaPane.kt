@@ -12,7 +12,6 @@ import com.evh98.vision.util.Palette
 class MediaPane(val color: Color, val text: String, val poster: Sprite) {
 
     val Vision = Vision()
-    val Graphics = Graphics()
 
     var font = Graphics.createFont(Graphics.font_roboto_thin, 100);
 

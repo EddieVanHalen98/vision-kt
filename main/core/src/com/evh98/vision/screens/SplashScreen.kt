@@ -6,6 +6,7 @@ import com.evh98.vision.Vision
 import com.evh98.vision.models.Models
 import com.evh98.vision.util.Graphics
 import com.evh98.vision.ui.Search
+import java.util.*
 
 class SplashScreen(vision: Vision) : VisionScreen(vision) {
 
@@ -56,9 +57,12 @@ class SplashScreen(vision: Vision) : VisionScreen(vision) {
     }
 
     private fun initScreens() {
-        vision.home_screen = HomeScreen(vision)
-        vision.game_screen = GameScreen(vision)
+        vision.screenStack = Stack<VisionScreen>()
 
-        vision.screen = vision.home_screen
+        vision.homeScreen = HomeScreen(vision)
+        vision.gameScreen = GameScreen(vision)
+
+        vision.screenStack!!.push(vision.homeScreen)
+        vision.screen = vision.screenStack!!.peek()
     }
 }

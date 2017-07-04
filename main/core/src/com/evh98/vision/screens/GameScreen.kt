@@ -39,7 +39,7 @@ class GameScreen(vision: Vision): VisionScreen(vision) {
             print(gamePanes.size / 3)
         }
         else if (Controller.isRed()) {
-            vision.screen = vision.home_screen
+            vision.screen = vision.homeScreen
         }
     }
 

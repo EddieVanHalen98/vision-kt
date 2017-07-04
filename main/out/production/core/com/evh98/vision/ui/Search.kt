@@ -1,9 +1,9 @@
 package com.evh98.vision.ui
 
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.evh98.vision.Vision
+import com.evh98.vision.util.Controller
 import com.evh98.vision.util.Graphics
 import com.evh98.vision.util.Icons
 import com.evh98.vision.util.Palette
@@ -25,7 +25,9 @@ class Search(vision: Vision) {
     }
 
     fun update() {
-
+        if (Controller.isSearch()) {
+            toggleSearch()
+        }
     }
 
     private fun renderUI(sprite_batch: SpriteBatch, shape_renderer: ShapeRenderer) {

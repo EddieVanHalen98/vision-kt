@@ -59,7 +59,20 @@ open class VisionScreen(val vision: Vision) : Screen {
     open fun update() {
         if (Controller.isSearch()) {
             vision.search!!.toggleSearch()
+        } else if (Controller.isRed()) {
+            vision.screenStack!!.pop()
+
+            if (vision.screenStack!!.size != 0) {
+                vision.screen = vision.screenStack!!.peek()
+            } else {
+                Gdx.app.exit()
+            }
         }
+    }
+
+    open fun changeScreen(screen: VisionScreen) {
+        vision.screenStack!!.push(screen)
+        vision.screen = vision.screenStack!!.peek()
     }
 
     override fun dispose() {

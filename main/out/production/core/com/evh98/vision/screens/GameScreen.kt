@@ -30,7 +30,7 @@ class GameScreen(vision: Vision): VisionScreen(vision) {
 
     override fun update() {
         super.update()
-        
+
         if (Controller.isNavigationKey()) {
             val newCoords = Controller.getNewXY(x, y, 3, gamePanes.size / 3, gamePanes.size)
             x = newCoords[0]
@@ -39,7 +39,7 @@ class GameScreen(vision: Vision): VisionScreen(vision) {
             print(gamePanes.size / 3)
         }
         else if (Controller.isRed()) {
-            vision.screen = vision.home_screen
+            vision.screen = vision.homeScreen
         }
     }
 

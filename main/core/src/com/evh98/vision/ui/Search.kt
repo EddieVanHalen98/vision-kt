@@ -1,6 +1,5 @@
 package com.evh98.vision.ui
 
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.evh98.vision.Vision

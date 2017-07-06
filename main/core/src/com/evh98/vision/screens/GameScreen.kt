@@ -16,6 +16,10 @@ class GameScreen(vision: Vision): VisionScreen(vision) {
 
     val gamePanes = mutableListOf<GamePane>()
 
+    init {
+        scrollCamera.setToOrtho(true, vision.WIDTH, vision.HEIGHT)
+    }
+
     override fun show() {
         super.show()
 
@@ -25,6 +29,9 @@ class GameScreen(vision: Vision): VisionScreen(vision) {
     }
 
     override fun draw(delta: Float) {
+        scrollCamera.update()
+        sprite_batch.projectionMatrix = scrollCamera.combined
+
         renderPanes()
     }
 
@@ -36,7 +43,12 @@ class GameScreen(vision: Vision): VisionScreen(vision) {
             x = newCoords[0]
             y = newCoords[1]
 
-            print(gamePanes.size / 3)
+            if ((y - 1) % 3 == 0) {
+                scrollCamera.position.y = ((y / 3) * 2160).toFloat()
+            }
+
+            println(scrollCamera.position.y)
+            println(y)
         }
         else if (Controller.isRed()) {
             vision.screen = vision.homeScreen
@@ -52,7 +64,7 @@ class GameScreen(vision: Vision): VisionScreen(vision) {
 
     private fun renderPanes() {
         for (gamePane in gamePanes) {
-            if (gamePane.xPos == x && gamePane.yPos == y) {
+            if (gamePane.xPos == (x - 1) && gamePane.yPos == (y - 1)) {
                 gamePane.renderSelect(sprite_batch, shape_renderer)
             } else {
                 gamePane.renderUnselect(sprite_batch)

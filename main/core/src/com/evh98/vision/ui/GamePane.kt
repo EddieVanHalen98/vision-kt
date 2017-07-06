@@ -1,6 +1,8 @@
 package com.evh98.vision.ui
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.evh98.vision.Vision
@@ -38,10 +40,13 @@ class GamePane(val game: Game, val xPos: Int, val yPos: Int) {
     }
 
     private fun renderIndicator(shape_renderer: ShapeRenderer) {
+        Gdx.gl.glEnable(GL20.GL_BLEND)
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
         shape_renderer.begin(ShapeRenderer.ShapeType.Filled)
         val red = Palette.RED
-        shape_renderer.color = Color(red.r, red.g, red.b, 0.5F)
-        Graphics.drawRect(shape_renderer, x.toFloat(), y + HEIGHT - 64, WIDTH, 64F)
+        shape_renderer.color = Color(red.r, red.g, red.b, 0.6F)
+        Graphics.drawRect(shape_renderer, x.toFloat(), y + HEIGHT - 32, WIDTH, 32F)
         shape_renderer.end()
+        Gdx.gl.glDisable(GL20.GL_BLEND)
     }
 }
